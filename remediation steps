@@ -68,3 +68,16 @@ Bonus: While you are here, ensure Allow Blob public access is also Disabled.
 Bonus: Set Minimum TLS version to 1.2.
 
 Click Save at the top.
+
+
+
+
+To truly "complete" the project, you should try to access the data from the outside:
+
+Open a private/incognito browser window.
+
+Try to navigate to your blob URL (e.g., https://<storageaccountname>.blob.core.windows.net/container/file.txt).
+
+Result: You should get a "Network Error" or "403 Forbidden."
+
+Even with the correct URL, the public internet cannot see the file because Public Access and Shared Keys are disabled.
