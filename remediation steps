@@ -1,0 +1,70 @@
+Remediation 1: Audit & Enforce Azure AD (The Preparation)
+Before you flip the switch to disable keys, you must prove that you can still get in using Microsoft Entra ID (Azure AD). This ensures you don't "lock yourself out" of your own house.
+
+Where to go: Storage Account > Access Control (IAM).
+
+What to do:
+
+Click + Add -> Add role assignment.
+
+Select Storage Blob Data Owner.
+
+Assign access to User, group, or service principal.
+
+Select your own email address/member account.
+
+Click Review + assign.
+
+Deep Insight: This shifts the security model from "Whoever has the password" to "Only this specific logged-in user."
+
+Remediation 2: Private Endpoint (The Networking Layer)
+This is the most complex but most "professional" step. It makes the storage account disappear from the public internet entirely.
+
+Step A: Create the VNet (The Private Road)
+
+Search for Virtual Networks -> Create.
+
+Name it Project-Secure-VNet.
+
+Click Review + Create.
+
+Step B: Create the Private Endpoint (The Private Gate)
+
+Go to your Storage Account -> Networking (left menu).
+
+Click the Private endpoint connections tab at the top.
+
+Click + Private endpoint.
+
+Resource Tab: Ensure "Target sub-resource" is set to blob.
+
+Virtual Network Tab: Select the Project-Secure-VNet you just made.
+
+Configuration: Ensure "Integrate with private DNS zone" is Yes.
+
+Click Review + Create.
+
+Step C: Cut the Public Line
+
+Once the endpoint is "Succeeded," go back to the Networking menu.
+
+Change "Public network access" to Disabled.
+
+Click Save.
+
+Remediation 3: Disable Shared Key Access (The Identity Layer)
+This is the "Setting" you mentioned in your link. This kills the "Master Password" (Access Keys) for the account.
+
+Where to go: Storage Account -> Configuration (under the Settings header).
+
+What to do:
+
+Find Allow storage account key access.
+
+Set it to Disabled.
+
+Bonus: While you are here, ensure Allow Blob public access is also Disabled.
+
+Bonus: Set Minimum TLS version to 1.2.
+
+Click Save at the top.
